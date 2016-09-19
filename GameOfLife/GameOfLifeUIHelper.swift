@@ -11,7 +11,7 @@ import UIKit
 
 class GameOfLifeUIHelper{
     
-    static let cellPerRow: Int = 25
+    static let cellPerRow: Int = 15
     static let spacingBetweenCells: CGFloat = 0
     static let cellIdentifier: String = "BoardCellIdentifier"
     

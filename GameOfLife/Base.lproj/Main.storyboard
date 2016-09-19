@@ -39,16 +39,46 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nh-fI-XA9">
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zz4-7O-ZZ6">
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Run">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
-                                            <action selector="refresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rf0-RC-1PA"/>
+                                            <action selector="runGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BsU-mW-ej6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Q5-Rq-q7a">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="56" id="48h-ga-eRN"/>
+                                        </constraints>
+                                        <state key="normal" title="Restart">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="restartGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wk0-oD-4lO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXO-Bm-m7c">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="PdX-eb-J4e"/>
+                                        </constraints>
+                                        <state key="normal" title="Stop">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="stopGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="esO-H1-cOo"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.24447993696635517" blue="0.28207966206159352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.58039215686274503" green="0.0" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="CXO-Bm-m7c" firstAttribute="top" secondItem="8nh-fI-XA9" secondAttribute="top" constant="10" id="0sr-AH-Nof"/>
                                     <constraint firstItem="zz4-7O-ZZ6" firstAttribute="centerX" secondItem="8nh-fI-XA9" secondAttribute="centerX" id="C8L-Sd-xpO"/>
+                                    <constraint firstItem="5Q5-Rq-q7a" firstAttribute="top" secondItem="8nh-fI-XA9" secondAttribute="top" constant="10" id="GK0-uK-y3P"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Q5-Rq-q7a" secondAttribute="bottom" constant="10" id="Pea-qn-OtM"/>
+                                    <constraint firstAttribute="trailing" secondItem="CXO-Bm-m7c" secondAttribute="trailing" constant="8" id="X92-j7-62F"/>
+                                    <constraint firstItem="5Q5-Rq-q7a" firstAttribute="leading" secondItem="8nh-fI-XA9" secondAttribute="leading" constant="8" id="h7d-3P-Jhh"/>
                                     <constraint firstAttribute="height" constant="50" id="j61-Nn-vFS"/>
+                                    <constraint firstAttribute="bottom" secondItem="CXO-Bm-m7c" secondAttribute="bottom" constant="10" id="nmF-gX-8pX"/>
                                     <constraint firstItem="zz4-7O-ZZ6" firstAttribute="top" secondItem="8nh-fI-XA9" secondAttribute="top" constant="10" id="vo3-8E-tMB"/>
                                 </constraints>
                             </view>

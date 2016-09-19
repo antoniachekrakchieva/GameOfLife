@@ -11,9 +11,9 @@ import UIKit
 class GameOfLifeViewController: UIViewController {
 
     private var gameOfLife: GameOfLifeHelper = GameOfLifeHelper()
-    
     private var cellSize: CGSize = CGSize.zero
-    var shouldChangeState: Bool = true
+    private var timer: NSTimer = NSTimer()
+    private var isGameRunning: Bool = false
     
     @IBOutlet weak var board: UICollectionView! {
         didSet {
@@ -26,7 +26,6 @@ class GameOfLifeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: #selector(ViewController.buttonTapped(_:)), userInfo: nil, repeats: true)
         
     }
     
@@ -38,22 +37,53 @@ class GameOfLifeViewController: UIViewController {
         gameOfLife.setUp(numberOfCells)
 
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    @IBAction func refresh(sender: AnyObject) {
-        gameOfLife.createNewGeneration()
-        board.reloadData()
-    }
-
-    func buttonTapped(sender: AnyObject){
-        
-    }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        board.reloadData()
+        stopCurrentGame()
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+}
+
+//MARK: UBAction
+extension GameOfLifeViewController{
+    @IBAction func refreshGeneration(sender: AnyObject) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.gameOfLife.createNewGeneration()
+            
+            if !self.gameOfLife.activeItemsExist {
+                self.stopCurrentGame()
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.board.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func runGame(sender: AnyObject) {
+        
+        guard !isGameRunning else{
+            return
+        }
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: #selector(GameOfLifeViewController.refreshGeneration(_:)), userInfo: nil, repeats: true)
+        isGameRunning = true
+    }
+    
+    @IBAction func stopGame(sender: AnyObject) {
+        stopCurrentGame()
+    }
+    
+    @IBAction func restartGame(sender: AnyObject) {
+        stopCurrentGame()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.gameOfLife.removeGeneration()
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.board.reloadData()
+            }
+        }
     }
 }
 
@@ -65,6 +95,10 @@ extension GameOfLifeViewController{
         
     }
     
+    private func stopCurrentGame(){
+        isGameRunning = false
+        timer.invalidate()
+    }
 }
 
 //MARK: UICollectionViewDelegateFlowLayout

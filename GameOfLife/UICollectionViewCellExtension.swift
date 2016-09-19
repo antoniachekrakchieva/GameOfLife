@@ -18,7 +18,8 @@ extension UICollectionViewCell{
     
     func changeBackground(state: State){
         setUpBorder()
-        backgroundColor = state == .Active ? UIColor.greenColor() : UIColor.blackColor()
+        backgroundColor = state == .Active ? UIColor(colorLiteralRed: 221/255.0, green: 160/255.0, blue: 211/255.0, alpha: 1)
+ : UIColor.blackColor()
     }
 
 }

@@ -44,13 +44,12 @@ class GameOfLifeHelper{
     
     private var boardValues: [BoardState] = []
     private var numberOfCells: Int = 0
-    
+    var activeItemsExist: Bool = false
+
     func setUp(numberOfCells: Int){
         self.numberOfCells = numberOfCells
-        boardValues = []
-        for i in 0..<numberOfCells{
-            boardValues.append(BoardState(position: i))
-        }
+        setUpEmptyGeneration()
+        
     }
     
     func numberOfItems() -> Int{
@@ -66,7 +65,12 @@ class GameOfLifeHelper{
         return boardValues[index].state
     }
     
+    func removeGeneration(){
+        setUpEmptyGeneration()
+    }
+    
     func createNewGeneration(){
+        activeItemsExist = false
         var newBoardValues: [BoardState] = boardValues
         for el in 0..<boardValues.count{
             if boardValues[el].isActive(){
@@ -81,15 +85,24 @@ class GameOfLifeHelper{
         boardValues = newBoardValues
     }
     
+    private func setUpEmptyGeneration(){
+        boardValues = []
+        for i in 0..<numberOfCells{
+            boardValues.append(BoardState(position: i))
+        }
+    }
+    
     private func changeUnactiveElementStateDependsOnNeigbours(index: Int) -> State{
         guard numberOfLiveNeighbours(index) == 3 else{
             return .Unactiv
         }
+        activeItemsExist = true
         return .Active
     }
     
     private func changeActiveElementStateDependsOnNeigbours(index: Int) -> State{
         guard numberOfLiveNeighbours(index) < 2 || numberOfLiveNeighbours(index) > 3 else{
+            activeItemsExist = true
             return .Active
         }
         return .Unactiv
